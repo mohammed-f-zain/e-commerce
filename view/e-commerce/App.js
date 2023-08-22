@@ -13,6 +13,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
 
+
     <NavigationContainer>
     <Stack.Navigator initialRouteName="FirstPage">
       <Stack.Screen name="Products" component={Products} />
@@ -25,3 +26,4 @@ const App = () => {
   );
 };
 export default App;
+
