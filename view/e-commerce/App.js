@@ -20,7 +20,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="FirstPage">
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
-        {/* <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }}/> */}
+         {/* <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }}/>  */}
         <Stack.Screen name="signup"  component={SignUpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="home"  component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Products" component={Products} />

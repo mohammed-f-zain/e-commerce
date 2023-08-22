@@ -1,16 +1,30 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
+const {
+  createUsersTable,
+  createProductsTable,
+  createOrdersTable,
+  createOrderDetailsTable,
+} = require("./models");
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(cors());
-dotenv.config();
-app.use(express.json());
+app.use(bodyParser.json());
+app.use("/users", userRoutes);
+app.use("/products", productRoutes);
 
+createUsersTable();
+createProductsTable();
 
-const port = process.env.PORT;
+createOrdersTable();
 
-  app.listen(port, () => {
-    console.log(`App is listing on ${port}`);
-  })
+createOrderDetailsTable();
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

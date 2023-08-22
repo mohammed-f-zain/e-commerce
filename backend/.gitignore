@@ -1,20 +1,8 @@
-# Ignore node_modules directory
+
+# dependencies
 node_modules/
 
-# Ignore environment variables file
-.env
 
-# Ignore logs (if applicable)
-logs/
+# local env files
+.env*.local
 
-# Ignore build artifacts (if applicable)
-build/
-
-# Ignore IDE and editor files
-.idea/
-.vscode/
-*.iml
-
-# Ignore npm/Yarn lock files
-package-lock.json
-yarn.lock
