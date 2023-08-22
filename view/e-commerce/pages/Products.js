@@ -33,12 +33,12 @@
 // };
 // export default FirstPage;
 import React from 'react';
-import { View, FlatList, Text, StyleSheet, Dimensions } from 'react-native';
-
+import { View, FlatList, Text, StyleSheet, Dimensions,Image } from 'react-native';
+import product from '../assets/product.png'
 const products = [
-  { id: '1', name: 'Product 1', price: '$10' },
-  { id: '2', name: 'Product 2', price: '$15' },
-  { id: '3', name: 'Product 3', price: '$20' },
+  { id: '1', name: 'Product 1', price: '$10',image:product},
+  { id: '2', name: 'Product 2', price: '$15',image:product},
+  { id: '3', name: 'Product 3', price: '$20',image:product},
   // Add more products as needed
 ];
 
@@ -47,6 +47,7 @@ const numColumns = 2; // Number of columns in the grid
 const ProductGrid = () => {
   const renderItem = ({ item }) => (
     <View style={styles.item}>
+    <Image source={item.image} style={styles.image}/>
       <Text>{item.name}</Text>
       <Text>{item.price}</Text>
     </View>
@@ -76,16 +77,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 150, // Set your desired height for each grid item
+    height: 350, // Set your desired height for each grid item
     width: itemWidth - 20, // Adjusted for margin/padding
     margin: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
+    borderRadius:20
   },
   row: {
     flex: 1,
     justifyContent: 'space-between',
   },
+  image: {
+    width: '100%',
+    height: '70%', // Adjust the image height as needed
+    resizeMode: 'cover',
+  }
 });
 
 export default ProductGrid;
