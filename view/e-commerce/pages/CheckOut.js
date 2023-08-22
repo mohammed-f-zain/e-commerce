@@ -10,13 +10,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
-import Address from "./components/Address";
+// import Address from "../components/Address";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
-export default function App() {
+export default function CheckOut() {
   const [address, setAddress] = useState([
     {
       text: "Home",
@@ -136,16 +136,16 @@ export default function App() {
             <View style={styles.images}>
               <Image
                 style={styles.image}
-                source={require("./assets/images/mastercard.svg")}
+                source={require("../assets/mastercard.png")}
               />
               <Image
                 style={styles.image}
-                source={require("./assets/images/paypal.png")}
+                source={require("../assets/paypal1.png")}
               />
             </View>
             <TouchableOpacity style={styles.paymentBtnContainer}>
               <Ionicons name="arrow-forward-circle" size={24} color="#fff" />
-              <Text style={styles.paymentBtnText}>Swipe for payment</Text>
+              <Text style={styles.paymentBtnText}>Complete Payment</Text>
             </TouchableOpacity>
           </View>
         </View>
