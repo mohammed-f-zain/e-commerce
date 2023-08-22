@@ -11,7 +11,7 @@ const {
 } = require("./models");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Use only the port number here
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -20,9 +20,7 @@ app.use("/products", productRoutes);
 
 createUsersTable();
 createProductsTable();
-
 createOrdersTable();
-
 createOrderDetailsTable();
 
 app.listen(PORT, () => {
