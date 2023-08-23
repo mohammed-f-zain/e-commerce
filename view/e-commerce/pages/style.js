@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   logoText: {
     fontSize: 30,
-    fontWeight: "500",
+    fontWeight: '500',
     marginTop: 50,
     marginBottom: 30,
     textAlign: "center",
@@ -83,5 +83,10 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
   },
+  containerCategories: {
+      marginTop:40,
+      padding:2,
+      marginStart:-15,
+      }
 });
 export default styles;

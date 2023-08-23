@@ -19,7 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function LoginScreen() {
   const onLoginPress = () => {
-    navigation.navigate("homer");
+    navigation.navigate("home");
   };
   const navigation = useNavigation();
   const onForgotPasswordPress = () => {

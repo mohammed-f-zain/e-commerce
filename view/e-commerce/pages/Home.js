@@ -1,4 +1,4 @@
-import React ,  { useState } from "react";
+import React, { useState } from "react";
 
 import styles from "./style";
 import {
@@ -14,24 +14,48 @@ import {
   ActivityIndicator,
   FlatList,
 } from "react-native";
-import { Button, SocialIcon } from "react-native-elements";
-import { createStackNavigator } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 // import { useRouter } from "expo-router";
-
+import CategoryCard from "../components/CategoryCard";
+const countries = [
+  {
+    id: "1",
+    name: "T-shirt",
+    image: "https://cdn.icon-icons.com/icons2/1082/PNG/512/tshirt_78128.png",
+  },
+  {
+    id: "2",
+    name: "Jackets",
+    image: "https://cdn-icons-png.flaticon.com/512/1785/1785396.png",
+  },
+  {
+    id: "3",
+    name: "pants",
+    image: "https://cdn-icons-png.flaticon.com/512/3893/3893044.png",
+  },
+  {
+    id: "4",
+    name: "View All",
+  },
+];
 const Home = () => {
-    // const router = useRouter();
-//   const { data, isLoading, error } = useFetch("search", {//useFetch.js
-//     query: "React developer",
-//     num_pages: "1",
-//   });
-    const [searchText, setSearchText] = useState("");
+  // const router = useRouter();
+  //   const { data, isLoading, error } = useFetch("search", {//useFetch.js
+  //     query: "React developer",
+  //     num_pages: "1",
+  //   });
+  const [searchText, setSearchText] = useState("");
 
-    const handleSearch = (text) => {
-      setSearchText(text);
-      // You can perform your search logic here
-    };
+  const handleSearch = (text) => {
+    setSearchText(text);
+    // You can perform your search logic here
+  };
+
+  {
+    /* An item renderer */
+  }
+  const renderItem = ({ item }) => <CategoryCard name={item.name} image={item.image}/>;
+
   return (
     <View
       style={{
@@ -46,13 +70,32 @@ const Home = () => {
         Custom clothing for the mordern unique man
       </Text>
       <View style={styles.container}>
-      <FontAwesome name="search" size={18} color="gray" style={styles.icon} />
-      <TextInput
-        style={styles.input}
-        placeholder="Search"
-        value={searchText}
-        onChangeText={handleSearch}
-      />
+        <FontAwesome name="search" size={18} color="gray" style={styles.icon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Search"
+          value={searchText}
+          onChangeText={handleSearch}
+        />
+      </View>
+
+      <View style={styles.containerCategories}>
+        <FlatList
+          data={countries}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          horizontal
+        />
+      </View>
+
+      <View style={styles.containerCategories}>
+        <FlatList
+          data={countries}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+
+        />
+      </View>
 
       {/* <View style={styles.cardsContainer}>
         {isLoading ? (
@@ -75,7 +118,6 @@ const Home = () => {
           />
         )}
       </View> */}
-      </View>
     </View>
   );
 };

@@ -11,7 +11,7 @@ import CheckOut from "./pages/CheckOut";
 import Profile from "./pages/Profile";
 import LoginScreen from "./pages/login";
 import SignUpScreen from "./pages/SignUp";
-import HomeScreen from "./pages/Home";
+import HomeContainer from "./pages/HomeContainer";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +22,7 @@ const App = () => {
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
          {/* <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }}/>  */}
         <Stack.Screen name="signup"  component={SignUpScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="home"  component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="home" component={HomeContainer} options={{ headerShown: false }} />
         <Stack.Screen name="Products" component={Products} />
         <Stack.Screen name="Item" component={Item} />
         <Stack.Screen name="Cart" component={Cart} />
