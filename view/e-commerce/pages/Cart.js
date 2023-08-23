@@ -51,7 +51,7 @@ function Cart({navigation}) {
         <Text style={styles.totalText}>Total:</Text>
         <Text style={styles.totalText}>1000$</Text>
       </View>
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainer}>                                                                
       <TouchableOpacity style={styles.checkbutton}
       onPress={() => navigation.navigate('CheckOut')}
       >

@@ -33,7 +33,7 @@ const SignUp = () => {
   const fetchPost = async () => {
     try {
       const response = await axios.post(
-        "https://class-a-back.onrender.com/users/add-user",
+        "https://project-e-commerce-v4bs.onrender.com/users/add-user",
         {
           username,
           email,
@@ -111,7 +111,9 @@ const SignUp = () => {
               onChangeText={setUsername}
               value={username}
             />
-            {usernameError && <Text style={styles.errorText}>{usernameError}</Text>}
+            {usernameError && (
+              <Text style={styles.errorText}>{usernameError}</Text>
+            )}
 
             <TextInput
               placeholder="Email"
@@ -130,7 +132,9 @@ const SignUp = () => {
               value={password}
               onChangeText={setPassword}
             />
-            {passwordError && <Text style={styles.errorText}>{passwordError}</Text>}
+            {passwordError && (
+              <Text style={styles.errorText}>{passwordError}</Text>
+            )}
 
             <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
               <TouchableOpacity

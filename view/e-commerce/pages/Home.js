@@ -19,7 +19,6 @@ import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import { useNavigation } from "@react-navigation/native";
 
-
 const Home = () => {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState("");
@@ -29,7 +28,8 @@ const Home = () => {
       CategoryName: "T-shirts",
       image: "https://cdn.icon-icons.com/icons2/1082/PNG/512/tshirt_78128.png",
       productName: "White T-shirt",
-      productImage: "https://cdn.icon-icons.com/icons2/1082/PNG/512/tshirt_78128.png",
+      productImage:
+        "https://cdn.icon-icons.com/icons2/1082/PNG/512/tshirt_78128.png",
       price: 30,
       isSelected: true,
     },
@@ -40,7 +40,7 @@ const Home = () => {
       productName: "",
       productImage: "",
       price: 0,
-      isSelected: false,  
+      isSelected: false,
     },
     {
       id: "3",
@@ -52,8 +52,10 @@ const Home = () => {
       isSelected: false,
     },
   ]);
-  const [selectedCategoryName, setSelectedCategoryName] = useState(data[0].CategoryName); // Initialize with the first category
-  const selectedItemId = data.find(item => item.isSelected)?.id; // Get the ID of the selected item
+  const [selectedCategoryName, setSelectedCategoryName] = useState(
+    data[0].CategoryName
+  ); // Initialize with the first category
+  const selectedItemId = data.find((item) => item.isSelected)?.id; // Get the ID of the selected item
 
   // fuctions
 
@@ -62,44 +64,51 @@ const Home = () => {
     // You can perform your search logic here
   };
 
-
-// handles selected category and makes sure only one is selected
- const OnCategoryPress = categoryName => {
-  setData(prevData =>
-    prevData.map(item =>
-      item.CategoryName === categoryName
-        ? { ...item, isSelected: true }
-        : { ...item, isSelected: false }
-    )
-  );
-  setSelectedCategoryName(categoryName);
-};
-
+  // handles selected category and makes sure only one is selected
+  const OnCategoryPress = (categoryName) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.CategoryName === categoryName
+          ? { ...item, isSelected: true }
+          : { ...item, isSelected: false }
+      )
+    );
+    setSelectedCategoryName(categoryName);
+  };
 
   {
     /* An item renderer */
   }
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => OnCategoryPress(item.CategoryName)}>
-    <CategoryCard name={item.CategoryName} image={item.image} isSelected={item.isSelected}/>
+      <CategoryCard
+        name={item.CategoryName}
+        image={item.image}
+        isSelected={item.isSelected}
+      />
     </TouchableOpacity>
   );
-  
+
   const renderProductItem = ({ item }) => {
     if (item.CategoryName === selectedCategoryName) {
       return (
-    <TouchableOpacity onPress={() => OnProductPress(item.id)}>
-    <ProductCard name={item.productName} price={item.price} image={item.productImage} />
-    </TouchableOpacity>)}
+        <TouchableOpacity onPress={() => OnProductPress(item.id)}>
+          <ProductCard
+            name={item.productName}
+            price={item.price}
+            image={item.productImage}
+          />
+        </TouchableOpacity>
+      );
+    }
     return null;
-        }
+  };
 
- 
-  const OnProductPress = itemId => {
+  const OnProductPress = (itemId) => {
     // Navigate to the item page with the selected item's ID
     navigation.navigate("Item", { itemId });
   };
-  
+
   return (
     <View
       style={{
@@ -109,7 +118,7 @@ const Home = () => {
         marginTop: 100,
       }}
     >
-      <Text style={{ fontWeight: "bold", fontSize: "40" }}>New Arraivals</Text>
+      <Text style={{ fontWeight: "bold", fontSize: 40 }}>New Arraivals</Text>
       <Text style={{ color: "grey", marginTop: 20 }}>
         Custom clothing for the mordern unique man
       </Text>
@@ -123,18 +132,17 @@ const Home = () => {
         />
       </View>
 
-{/* Category Section */}
+      {/* Category Section */}
       <View style={styles.containerCategories}>
         <FlatList
           data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           horizontal
-          
         />
       </View>
 
-{/* products section */}
+      {/* products section */}
       <View
         style={{
           flexDirection: "row",
@@ -142,14 +150,13 @@ const Home = () => {
           justifyContent: "space-between",
         }}
       >
-        
         {selectedItemId && ( // Display selected item's CategoryName if it exists
-        <Text style={{ fontSize: 30, marginTop: 10, marginBottom: 5 }}>
-          {data.find(item => item.id === selectedItemId).CategoryName}
-        </Text>
-      )}
+          <Text style={{ fontSize: 30, marginTop: 10, marginBottom: 5 }}>
+            {data.find((item) => item.id === selectedItemId).CategoryName}
+          </Text>
+        )}
 
-      {/* static button */}
+        {/* static button */}
         <Text style={{ marginEnd: 50, color: "grey", marginTop: 10 }}>
           Show All
         </Text>
