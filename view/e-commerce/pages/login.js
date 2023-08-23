@@ -40,6 +40,7 @@ const fetchPost = async () => {
     navigation.navigate("home");
   };
   const navigation = useNavigation();
+  
   const onForgotPasswordPress = () => {
     navigation.navigate("ForgotPassword");
   };

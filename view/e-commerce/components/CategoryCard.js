@@ -2,10 +2,16 @@ import React from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native';
 
 
-const CategoryCard = ({name , image}) => {
+const CategoryCard = ({name , image , isSelected}) => {
   return (
     //  A component to render individual item
-        <View style={styles.item}>
+        <View style={[
+          styles.item,
+          {
+            borderColor: isSelected ? '#B7076B' : 'lightgrey',
+            borderWidth: isSelected ? 2 : 1,
+          },
+        ]} >
           <Image 
           source= {{ uri: image }}
           resizeMode='center'
