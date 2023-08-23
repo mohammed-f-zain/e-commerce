@@ -30,7 +30,7 @@ export default function LoginScreen() {
         }
       );
       console.log("Response:", response.data);
-      // navigation.navigate("home");
+       navigation.navigate("home");
     } catch (error) {
       console.error("Error:", error);
       console.error("Error response:", error.response);

@@ -40,7 +40,8 @@ const SignUp = () => {
           password,
         }
       );
-      console.log("Response:", response);
+      console.log("Response:", response.data);
+      navigation.navigate("home");
     } catch (error) {
       console.error("Error:", error);
       console.error("Error response:", error.response);
@@ -80,7 +81,8 @@ const SignUp = () => {
   };
 
   const isValidEmail = (email) => {
-    // Your email validation logic here
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
   };
 
   const handleToggleCheckbox = () => {
