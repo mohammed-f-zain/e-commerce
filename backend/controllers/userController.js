@@ -44,6 +44,8 @@ const UserController = (req, res) => {
 //   });
 // };
 
+
+//merge the two function before deploy
 const userNewOrder = (req, res) => {
   const { userID } = req.body;
   addOrder(userID, (err, userID) => {
@@ -68,6 +70,8 @@ const newOrderDetails = (req, res) => {
   });
 };
 
+
+// check the delete after the axios fetch
 const deleteOrderFromCarts = (req, res) => {
   const { orderID, userID } = req.body;
   deleteOrder(orderID, userID, (err, orderID) => {

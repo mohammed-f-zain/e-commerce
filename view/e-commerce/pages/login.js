@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./style";
 import {
@@ -18,8 +18,26 @@ import { useNavigation } from "@react-navigation/native";
 
 
 export default function LoginScreen() {
+  const [email,setEmail]=useState("")
+const fetchPost = async () => {
+
+  try {
+    const response = await axios.post(
+      `https://class-a-back.onrender.com/users/${email}`,
+      {
+        email,
+        password,
+      }
+    );
+    console.log("Response:", response);
+  } catch (error) {
+    console.error("Error:", error);
+    console.error("Error response:", error.response);
+  }
+};
+
   const onLoginPress = () => {
-    navigation.navigate("homer");
+    navigation.navigate("home");
   };
   const navigation = useNavigation();
   const onForgotPasswordPress = () => {
@@ -47,9 +65,11 @@ export default function LoginScreen() {
 
             <Text style={styles.logoText}>Log in</Text>
             <TextInput
-              placeholder="Username"
+              placeholder="Email"
               placeholderColor="#c4c3cb"
               style={styles.loginFormTextInput}
+              value={email}
+              onChangeText={setEmail}
             />
             <TextInput
               placeholder="Password"

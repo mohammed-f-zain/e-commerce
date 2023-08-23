@@ -83,5 +83,17 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
   },
+
+    // ... other style definitions ...
+  
+    errorText: {
+      color: 'red', // Change this line to set the color to red
+      fontSize: 14,
+      marginTop: 5,
+    },
+  
+
+  
+
 });
 export default styles;
