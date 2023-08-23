@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-
-import styles from "./style";
 import {
   Alert,
   Keyboard,
@@ -12,39 +10,74 @@ import {
   View,
   Image,
 } from "react-native";
-import { Button, SocialIcon } from "react-native-elements";
-import { createStackNavigator } from "@react-navigation/stack";
+import { Button } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+
+import styles from "./style"; // Make sure to import your style file
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const fetchPost = async () => {
-    try {
-      const response = await axios.post(
-        `https://project-e-commerce-v4bs.onrender.com/users`,
-        {
-          email,
-          password,
-        }
-      );
-      console.log("Response:", response.data);
-       navigation.navigate("home");
-    } catch (error) {
-      console.error("Error:", error);
-      console.error("Error response:", error.response);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState(""); // New state for login error
+  const navigation = useNavigation();
+
+  const validateEmail = () => {
+    if (!email) {
+      setEmailError("Email is required");
+      return false;
     }
+    if (!isValidEmail(email)) {
+      setEmailError("Invalid email format");
+      return false;
+    }
+    setEmailError("");
+    return true;
   };
 
-  // const onLoginPress = () => {
-  //   navigation.navigate("home");
-  // };
-  const navigation = useNavigation();
+  const validatePassword = () => {
+    if (!password) {
+      setPasswordError("Password is required");
+      return false;
+    }
+    setPasswordError("");
+    return true;
+  };
+
+  const isValidEmail = (email) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  };
+
+  const fetchPost = async () => {
+    if (validateEmail() && validatePassword()) {
+      try {
+        const response = await axios.post(
+          "https://project-e-commerce-v4bs.onrender.com/users",
+          {
+            email,
+            password,
+          }
+        );
+        console.log("Response:", response.data);
+        if (response.data === "Email or password not exist") {
+          setLoginError("Invalid email or password"); // Set the login error message
+        } else {
+          navigation.navigate("home");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        console.error("Error response:", error.response);
+      }
+    }
+  };
 
   const onForgotPasswordPress = () => {
     navigation.navigate("ForgotPassword");
   };
+
   const onSignUpPress = () => {
     navigation.navigate("signup");
   };
@@ -73,6 +106,9 @@ export default function LoginScreen() {
               value={email}
               onChangeText={setEmail}
             />
+            {emailError && (
+              <Text style={styles.errorText}>{emailError}</Text>
+            )}
             <TextInput
               placeholder="Password"
               placeholderColor="#c4c3cb"
@@ -81,12 +117,17 @@ export default function LoginScreen() {
               value={password}
               onChangeText={setPassword}
             />
+            {passwordError && (
+              <Text style={styles.errorText}>{passwordError}</Text>
+            )}
+            {loginError && (
+              <Text style={styles.errorText}>{loginError}</Text>
+            )} 
             <TouchableOpacity onPress={onForgotPasswordPress}>
               <Text style={{ marginStart: 220, marginBottom: 15 }}>
                 Forgot Password?
               </Text>
             </TouchableOpacity>
-
             <Button
               buttonStyle={styles.loginButton}
               onPress={fetchPost}
