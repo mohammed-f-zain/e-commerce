@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-import styles from "./style";
+import React, { useState } from "react";
 import {
   Alert,
   Keyboard,
@@ -15,12 +13,18 @@ import {
 import { Button, SocialIcon, CheckBox } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import styles from "./style"; // Make sure to import your style file
 
 const SignUp = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isChecked, setChecked] = useState(false);
+
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const onLogInPress = () => {
     navigation.navigate("Login");
@@ -29,34 +33,55 @@ const SignUp = () => {
   const fetchPost = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/users/add-user",
+        "https://class-a-back.onrender.com/users/add-user",
         {
           username,
           email,
           password,
         }
       );
-      console.log("Sending request with data:", { username, email, password });
-
-      console.log("Response:", response.data);
-      // Handle response if needed (e.g., show a success message)
+      console.log("Response:", response);
     } catch (error) {
-      // Handle error, show an error message, etc.
       console.error("Error:", error);
+      console.error("Error response:", error.response);
     }
   };
 
   const onSignUpPress = async () => {
+    let hasError = false;
+
+    if (!username) {
+      setUsernameError("Username is required");
+      hasError = true;
+    }
+
+    if (!email) {
+      setEmailError("Email is required");
+      hasError = true;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Invalid email format");
+      hasError = true;
+    }
+
+    if (!password) {
+      setPasswordError("Password is required");
+      hasError = true;
+    }
+
+    if (hasError) {
+      return;
+    }
+
     try {
       await fetchPost();
-      // Handle successful signup, navigation, or show a success message
     } catch (error) {
-      // Handle error, show an error message, etc.
       console.error(error);
     }
   };
 
-  const [isChecked, setChecked] = useState(false);
+  const isValidEmail = (email) => {
+    // Your email validation logic here
+  };
 
   const handleToggleCheckbox = () => {
     setChecked(!isChecked);
@@ -86,6 +111,8 @@ const SignUp = () => {
               onChangeText={setUsername}
               value={username}
             />
+            {usernameError && <Text style={styles.errorText}>{usernameError}</Text>}
+
             <TextInput
               placeholder="Email"
               placeholderColor="#c4c3cb"
@@ -93,6 +120,8 @@ const SignUp = () => {
               value={email}
               onChangeText={setEmail}
             />
+            {emailError && <Text style={styles.errorText}>{emailError}</Text>}
+
             <TextInput
               placeholder="Password"
               placeholderColor="#c4c3cb"
@@ -101,6 +130,8 @@ const SignUp = () => {
               value={password}
               onChangeText={setPassword}
             />
+            {passwordError && <Text style={styles.errorText}>{passwordError}</Text>}
+
             <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
               <TouchableOpacity
                 style={styles.checkboxContainer}
