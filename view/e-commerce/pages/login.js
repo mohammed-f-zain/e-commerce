@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Alert,
   Keyboard,
@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 import styles from "./style"; // Make sure to import your style file
-
+import { AppContext } from "../App";
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +23,7 @@ export default function LoginScreen() {
   const [passwordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState(""); // New state for login error
   const navigation = useNavigation();
-
+  const { setData } = useContext(AppContext);
   const validateEmail = () => {
     if (!email) {
       setEmailError("Email is required");
@@ -61,11 +61,14 @@ export default function LoginScreen() {
             password,
           }
         );
-        console.log("Response:", response.data);
+        // console.log("Response:", response.data);
         if (response.data === "Email or password not exist") {
           setLoginError("Invalid email or password"); // Set the login error message
         } else {
           navigation.navigate("home");
+          const data = [response.data[0].username, response.data[0].email];
+
+          setData(data);
         }
       } catch (error) {
         console.error("Error:", error);
@@ -106,9 +109,7 @@ export default function LoginScreen() {
               value={email}
               onChangeText={setEmail}
             />
-            {emailError && (
-              <Text style={styles.errorText}>{emailError}</Text>
-            )}
+            {emailError && <Text style={styles.errorText}>{emailError}</Text>}
             <TextInput
               placeholder="Password"
               placeholderColor="#c4c3cb"
@@ -120,9 +121,7 @@ export default function LoginScreen() {
             {passwordError && (
               <Text style={styles.errorText}>{passwordError}</Text>
             )}
-            {loginError && (
-              <Text style={styles.errorText}>{loginError}</Text>
-            )} 
+            {loginError && <Text style={styles.errorText}>{loginError}</Text>}
             <TouchableOpacity onPress={onForgotPasswordPress}>
               <Text style={{ marginStart: 220, marginBottom: 15 }}>
                 Forgot Password?

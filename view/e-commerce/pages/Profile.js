@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
+import { React, useContext } from "react";
 import { StatusBar } from "react-native";
+import { AppContext } from "../App";
 
 const MenuItem = ({ category, info }) => (
   <View style={styles.usercategories}>
@@ -15,6 +16,8 @@ const MenuItem = ({ category, info }) => (
 );
 
 const Profile = () => {
+  const { data } = useContext(AppContext);
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>My Profile</Text>
@@ -26,8 +29,8 @@ const Profile = () => {
           style={styles.image}
         />
         <View style={styles.userMainInformation}>
-          <Text style={styles.username}>Username</Text>
-          <Text style={styles.email}>email@example.com</Text>
+          <Text style={styles.username}>{data[0]}</Text>
+          <Text style={styles.email}>{data[1]}</Text>
         </View>
       </View>
 
