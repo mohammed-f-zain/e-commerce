@@ -53,7 +53,7 @@ function Cart({navigation}) {
       </View>
       <View style={styles.buttonContainer}>
       <TouchableOpacity style={styles.checkbutton}
-      onPress={() => navigation.navigate('Payment')}
+      onPress={() => navigation.navigate('CheckOut')}
       >
         <Text style={styles.checkout}>Checkout</Text>
       </TouchableOpacity>

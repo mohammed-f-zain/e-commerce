@@ -26,7 +26,7 @@ function Congratulation({ navigation }) {
       <TouchableOpacity style={styles.button}>
         <Text style={styles.text}>Download Reciept</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button2}>
+      <TouchableOpacity style={styles.button2}  onPress={() => navigation.navigate('Home')}>
         <Text style={styles.text2}>Back to Home</Text>
       </TouchableOpacity>
     </View>

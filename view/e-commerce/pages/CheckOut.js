@@ -16,7 +16,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
-export default function CheckOut() {
+export default function CheckOut({navigation}) {
+  navigation.setOptions({
+    title: 'CheckOut',
+    headerStyle: {
+      backgroundColor: '#EFEFF2',
+    },
+    headerTintColor: '#000',
+  });
   const [address, setAddress] = useState([
     {
       text: "Home",
@@ -143,9 +150,9 @@ export default function CheckOut() {
                 source={require("../assets/paypal1.png")}
               />
             </View>
-            <TouchableOpacity style={styles.paymentBtnContainer}>
+            <TouchableOpacity style={styles.paymentBtnContainer}  onPress={() => navigation.navigate('Congratulation')} >
               <Ionicons name="arrow-forward-circle" size={24} color="#fff" />
-              <Text style={styles.paymentBtnText}>Complete Payment</Text>
+              <Text style={styles.paymentBtnText} >Complete Payment</Text>
             </TouchableOpacity>
           </View>
         </View>
