@@ -3,6 +3,8 @@ import { React, useContext } from "react";
 import { StatusBar } from "react-native";
 import { AppContext } from "../App";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ScrollView } from "react-native";
+
 const MenuItem = ({ category, info }) => (
   <View style={styles.usercategories}>
     <Text style={styles.category}>{category}</Text>
@@ -19,42 +21,53 @@ const Profile = ({ navigation }) => {
   const { data } = useContext(AppContext);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>My Profile</Text>
-      <StatusBar style="auto" />
+    <ScrollView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Text style={styles.heading}>My Profile</Text>
+        <StatusBar style="auto" />
 
-      <View style={styles.usercontainer}>
-        <Image source={require("../assets/avatar.png")} style={styles.image} />
-        <View style={styles.userMainInformation}>
-          <Text style={styles.username}>{data[0]}</Text>
-          <Text style={styles.email}>{data[1]}</Text>
+        <View style={styles.usercontainer}>
+          <Image
+            source={require("../assets/avatar.png")}
+            style={styles.image}
+          />
+          <View style={styles.userMainInformation}>
+            <Text style={styles.username}>{data[0]}</Text>
+            <Text style={styles.email}>{data[1]}</Text>
+          </View>
+          <MaterialIcons
+            name="logout"
+            size={30}
+            color="black"
+            onPress={() => navigation.navigate("Login")}
+            style={{ marginLeft: 160 }}
+          />
         </View>
-        <MaterialIcons
-          name="logout"
-          size={30}
-          color="black"
-          onPress={() => navigation.navigate("Login")}
-          style={{ marginLeft: 160 }}
-        />
+
+        <MenuItem category="My Orders" info="Already have 12 orders" />
+        <View style={styles.horizontalLine} />
+
+        <MenuItem category="Shipping Addresses" info="3 addresses" />
+        <View style={styles.horizontalLine} />
+
+        <MenuItem category="Payment Methods" info="Visa **34" />
+        <View style={styles.horizontalLine} />
+
+        <MenuItem category="Promo Codes" info="You have special promocodes" />
+        <View style={styles.horizontalLine} />
+
+        <MenuItem category="My Reviews" info="Reviews for 4 items" />
+        <View style={styles.horizontalLine} />
+        <MenuItem category="My Reviews" info="Reviews for 4 items" />
+        <View style={styles.horizontalLine} />
+        <MenuItem category="My Reviews" info="Reviews for 4 items" />
+        <View style={styles.horizontalLine} />
+        <MenuItem category="My Reviews" info="Reviews for 4 items" />
+        <View style={styles.horizontalLine} />
+
+        <MenuItem category="Settings" info="Notifications, password" />
       </View>
-
-      <MenuItem category="My Orders" info="Already have 12 orders" />
-      <View style={styles.horizontalLine} />
-
-      <MenuItem category="Shipping Addresses" info="3 addresses" />
-      <View style={styles.horizontalLine} />
-
-      <MenuItem category="Payment Methods" info="Visa **34" />
-      <View style={styles.horizontalLine} />
-
-      <MenuItem category="Promo Codes" info="You have special promocodes" />
-      <View style={styles.horizontalLine} />
-
-      <MenuItem category="My Reviews" info="Reviews for 4 items" />
-      <View style={styles.horizontalLine} />
-
-      <MenuItem category="Settings" info="Notifications, password" />
-    </View>
+    </ScrollView>
   );
 };
 
