@@ -47,7 +47,7 @@ const App = () => {
               headerShown: false,
             }}
           />
-          <Stack.Screen name="Products" component={Products} />
+          <Stack.Screen name="Products" component={Products}  />
           <Stack.Screen name="Item" component={Item} />
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Payment" component={Payment} />
