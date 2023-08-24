@@ -27,8 +27,8 @@ const NavBar = () => {
           },
           tabBarActiveTintColor: '#b7076b',     // Added line
           tabBarInactiveTintColor: '#808080',   // Added line
-          tabBarLabelStyle: { paddingBottom: 10, fontSize: 14 },
-          tabBarStyle: { padding: 10, height: 100 },
+          tabBarLabelStyle: { paddingBottom: 7, fontSize: 14 },
+          tabBarStyle: { padding: 10, height: 60 },
         })}
       >
         <Tab.Screen name="Home" component={Home} options={{ headerShown: false }}/>
