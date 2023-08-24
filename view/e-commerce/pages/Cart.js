@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     padding: 30,
     justifyContent: "center",
     alignContent: "center",
-    paddingTop: 100,
+    paddingTop: 20,
   },
   productItem: {
     flexDirection: "row",

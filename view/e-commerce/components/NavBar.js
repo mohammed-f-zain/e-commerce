@@ -39,12 +39,12 @@ const NavBar = () => {
       <Tab.Screen
         name="Cart"
         component={Cart}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
     </Tab.Navigator>
   );
