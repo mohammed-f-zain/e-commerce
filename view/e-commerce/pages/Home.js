@@ -111,8 +111,8 @@ const Home = () => {
     </TouchableOpacity>
   );
 
-  const OnProductPress = (itemId) => {
-    navigation.navigate("Item", { itemId });
+  const OnProductPress = (itemData) => {
+    navigation.navigate("Item", { itemData });
   };
 
   return (
@@ -150,7 +150,7 @@ const Home = () => {
         {filteredData.map((item, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => OnProductPress(item.id)} // Use item.id or another unique identifier
+            onPress={() => OnProductPress(item)}
             style={{
               flexDirection: "row",
               flexWrap: "wrap",
