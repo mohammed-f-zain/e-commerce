@@ -29,7 +29,6 @@ function Cart({ navigation }) {
         onPress={() => navigation.goBack()}
       >
         <Ionicons name="ios-arrow-back" size={24} color="#000" />
-        <Text> Home</Text>
       </TouchableOpacity>
     ),
   });
