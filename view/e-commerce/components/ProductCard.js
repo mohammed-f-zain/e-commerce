@@ -3,13 +3,19 @@ import React from "react";
 // import styles from "../pages/style";
 import { Text, View, StyleSheet, Image } from "react-native";
 
-const ProductCard = ({ name, price, image }) => {
+const ProductCard = ({ item }) => {
   return (
     <View style={styles.item}>
       <Image
-        source={{ uri: image }}
+        source={item.image}
         // resizeMode="center"
-        style={{ width: 130, height: 140, marginBottom: 3, backgroundColor: "#FFFAF6", borderRadius: 8 }}
+        style={{
+          width: 130,
+          height: 140,
+          marginBottom: 3,
+          backgroundColor: "#FFFAF6",
+          borderRadius: 8,
+        }}
       />
       <View
         style={{
@@ -19,10 +25,8 @@ const ProductCard = ({ name, price, image }) => {
           marginTop: 15,
         }}
       >
-        <Text style={{ color: "black", fontWeight:'bold' }}>
-          {name}
-        </Text>
-        <Text>{price}$</Text>
+        <Text style={{ color: "black", fontWeight: "bold" }}>{item.name}</Text>
+        <Text>{item.price}$</Text>
       </View>
     </View>
   );

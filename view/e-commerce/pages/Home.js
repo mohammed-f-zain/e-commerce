@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import styles from "./style";
+import React, { useState , useEffect} from "react";
 
+import styles from "./style";
+import axios from "axios"
 import {
   Alert,
   Keyboard,
@@ -19,16 +20,22 @@ import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import { useNavigation } from "@react-navigation/native";
 
-const Home = ({ navigation }) => {
-  navigation.setOptions({
-    title: "Home",
-    headerStyle: {
-      backgroundColor: "#EFEFF2",
-    },
-    headerTintColor: "#000",
-  });
+const Home = () => {
+  const navigation = useNavigation();
   const [searchText, setSearchText] = useState("");
 
+  const [itemData,setItemData]=useState([]);
+useEffect(() => {
+    axios.get("https://project-e-commerce-v4bs.onrender.com/products")
+      .then(response => {
+        setItemData(response.data);
+        
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+  console.log(itemData.splice(0,2))
   const [data, setData] = useState([
     {
       id: "1",
@@ -59,7 +66,7 @@ const Home = ({ navigation }) => {
       isSelected: false,
     },
   ]);
-  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
+   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
   const selectedItemId = data.find((item) => item.isSelected)?.id;
 
   const handleSearch = (text) => {
@@ -101,11 +108,12 @@ const Home = ({ navigation }) => {
     ) {
       return (
         <TouchableOpacity onPress={() => OnProductPress(item.id)}>
-          <ProductCard
-            name={item.productName}
-            price={item.price}
-            image={item.productImage}
-          />
+          {itemData.map((item , index)=>{
+              return(
+
+                <ProductCard item={item} key={index}/>
+              )
+          })}
         </TouchableOpacity>
       );
     }
@@ -117,6 +125,7 @@ const Home = ({ navigation }) => {
   };
 
   return (
+    
     <View
       style={{
         flex: 1,
@@ -139,16 +148,16 @@ const Home = ({ navigation }) => {
         />
       </View>
       {/* select -> pink , unselect ->*/}
-      <View style={styles.containerCategories}>
+      {/* <View style={styles.containerCategories}>
         <FlatList
           data={data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           horizontal
         />
-      </View>
+      </View> */}
 
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -164,17 +173,18 @@ const Home = ({ navigation }) => {
         <Text style={{ marginEnd: 50, color: "grey", marginTop: 60 }}>
           Show All
         </Text>
-      </View>
+      </View> */}
       {/* edit this to make the scroll vertical And Flex:1 , so you can see all the items. */}
       <View style={{ padding: 2, marginStart: -13, flex: 1 }}>
-        <FlatList
-          data={data}
-          numColumns={2}
-          renderItem={renderProductItem}
-          keyExtractor={(item) => item.id}
-          vertical
-        />
-      </View>
+  {selectedCategoryName === null || item.CategoryName === selectedCategoryName ? (
+    <TouchableOpacity onPress={() => OnProductPress(item.id)}>
+      {itemData.map((item, index) => (
+        <ProductCard item={item} key={index} />
+      ))}
+    </TouchableOpacity>
+  ) : null}
+</View>
+
     </View>
   );
 };
