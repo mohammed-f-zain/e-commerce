@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { React, useContext } from "react";
 import { StatusBar } from "react-native";
 import { AppContext } from "../App";
-
+import { MaterialIcons } from "@expo/vector-icons";
 const MenuItem = ({ category, info }) => (
   <View style={styles.usercategories}>
     <Text style={styles.category}>{category}</Text>
@@ -15,7 +15,7 @@ const MenuItem = ({ category, info }) => (
   </View>
 );
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const { data } = useContext(AppContext);
 
   return (
@@ -24,14 +24,18 @@ const Profile = () => {
       <StatusBar style="auto" />
 
       <View style={styles.usercontainer}>
-        <Image
-          source={require("../assets/avatar.png")}
-          style={styles.image}
-        />
+        <Image source={require("../assets/avatar.png")} style={styles.image} />
         <View style={styles.userMainInformation}>
           <Text style={styles.username}>{data[0]}</Text>
           <Text style={styles.email}>{data[1]}</Text>
         </View>
+        <MaterialIcons
+          name="logout"
+          size={30}
+          color="black"
+          onPress={() => navigation.navigate("Login")}
+          style={{ marginLeft: 160 }}
+        />
       </View>
 
       <MenuItem category="My Orders" info="Already have 12 orders" />

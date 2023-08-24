@@ -63,17 +63,19 @@ const Home = () => {
   const OnCategoryPress = (categoryName) => {
     if (selectedCategoryName === categoryName) {
       setSelectedCategoryName(null);
+      setData((prevData) =>
+        prevData.map((item) => ({ ...item, isSelected: false }))
+      );
     } else {
       setSelectedCategoryName(categoryName);
+      setData((prevData) =>
+        prevData.map((item) =>
+          item.CategoryName === categoryName
+            ? { ...item, isSelected: true }
+            : { ...item, isSelected: false }
+        )
+      );
     }
-
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.CategoryName === categoryName
-          ? { ...item, isSelected: true }
-          : { ...item, isSelected: false }
-      )
-    );
   };
 
   const renderItem = ({ item }) => (

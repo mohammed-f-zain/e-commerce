@@ -66,10 +66,6 @@ export default function CheckOut({navigation}) {
       <ScrollView>
         <View style={styles.container}>
           {/* header */}
-          <View style={styles.header}>
-            <MaterialIcons name="arrow-back-ios" size={24} color="black" />
-            <Text style={styles.title}>Checkout</Text>
-          </View>
           {/* Delivery address */}
           <View style={styles.content}>
             <Text style={styles.subtitle}>Delivery address</Text>
@@ -165,6 +161,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fbfbfd",
+    paddingVertical:40
   },
   // header
   header: {
