@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons or any other icon library you're using
+
 const T1 = require("../assets/t1.png");
 const T2 = require("../assets/t2.png");
 const T3 = require("../assets/t3.png");
@@ -21,6 +23,15 @@ function Cart({ navigation }) {
       backgroundColor: "#EFEFF2",
     },
     headerTintColor: "#000",
+    headerLeft: () => (
+      <TouchableOpacity
+        style={{ marginLeft: 15, flex:1,flexDirection:"row",alignItems:"center" }}
+        onPress={() => navigation.goBack()}
+      >
+        <Ionicons name="ios-arrow-back" size={24} color="#000" />
+        <Text> Home</Text>
+      </TouchableOpacity>
+    ),
   });
 
   const products = [

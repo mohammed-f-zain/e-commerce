@@ -4,7 +4,8 @@ import { StatusBar } from "react-native";
 import { AppContext } from "../App";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
-
+import { Ionicons } from "@expo/vector-icons"; // Import Ionicons or any other icon library you're using
+import { TouchableOpacity } from "react-native";
 const MenuItem = ({ category, info }) => (
   <View style={styles.usercategories}>
     <Text style={styles.category}>{category}</Text>
@@ -25,6 +26,20 @@ const Profile = ({ navigation }) => {
       backgroundColor: "#EFEFF2",
     },
     headerTintColor: "#000",
+    headerLeft: () => (
+      <TouchableOpacity
+        style={{
+          marginLeft: 15,
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+        onPress={() => navigation.goBack()}
+      >
+        <Ionicons name="ios-arrow-back" size={24} color="#000" />
+        <Text> Home</Text>
+      </TouchableOpacity>
+    ),
   });
 
   return (
