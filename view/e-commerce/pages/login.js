@@ -66,7 +66,7 @@ export default function LoginScreen() {
           setLoginError("Invalid email or password"); // Set the login error message
         } else {
           navigation.navigate("home");
-          const data = [response.data[0].username, response.data[0].email];
+          const data = [response.data[0].username, response.data[0].email,response.data[0].id];
 
           setData(data);
         }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { AppContext } from "../App";
+import { Button } from "react-native-elements";
 
 function Items({ route }) {
   const { itemData } = route.params;
@@ -24,7 +27,29 @@ function Items({ route }) {
   const addToCart = (cartItem) => {
     navigation.navigate("Cart", { cartItem });
   };
-
+  const { data } = useContext(AppContext);
+  const userID = data[2];
+  const productID = itemData.id;
+  const quantity = 1;
+  const [addCart, setAddCart] = useState([]);
+  const fetchPost = async () => {
+    try {
+      const response = await axios.post(
+        "https://project-e-commerce-v4bs.onrender.com/users/add-order",
+        {
+          userID,
+          productID,
+          quantity,
+        }
+      );
+      setAddCart(response.data);
+      addToCart(itemData);
+    } catch (error) {
+      console.error("Error:", error);
+      console.error("Error response:", error.response);
+    }
+  };
+  console.log(addCart);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -48,13 +73,8 @@ function Items({ route }) {
           </View>
           <View style={styles.descBtn}>
             <Text style={styles.description}>{itemData.description}</Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                /* Handle Add to Cart */
-              }}
-            >
-              <Text onPress={() => addToCart(itemData)} style={styles.buttonText}>Add to cart</Text>
+            <TouchableOpacity onPress={() => fetchPost()} style={styles.button}>
+              <Text style={styles.buttonText}>Add to cart</Text>
             </TouchableOpacity>
           </View>
         </View>

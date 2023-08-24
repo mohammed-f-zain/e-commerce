@@ -18,7 +18,7 @@ const T4 = require("../assets/t4.png");
 
 function Cart({ navigation, route }) {
   const { cartItem } = route.params;
-  console.log(cartItem);
+  // console.log(cartItem);
   navigation.setOptions({
     title: "cart",
     headerStyle: {
