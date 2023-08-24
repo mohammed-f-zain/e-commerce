@@ -19,13 +19,19 @@ const MenuItem = ({ category, info }) => (
 
 const Profile = ({ navigation }) => {
   const { data } = useContext(AppContext);
+  navigation.setOptions({
+    title: "profile",
+    headerStyle: {
+      backgroundColor: "#EFEFF2",
+    },
+    headerTintColor: "#000",
+  });
 
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text style={styles.heading}>My Profile</Text>
         <StatusBar style="auto" />
-
         <View style={styles.usercontainer}>
           <Image
             source={require("../assets/avatar.png")}
@@ -43,24 +49,13 @@ const Profile = ({ navigation }) => {
             style={{ marginLeft: 160 }}
           />
         </View>
-
         <MenuItem category="My Orders" info="Already have 12 orders" />
         <View style={styles.horizontalLine} />
-
         <MenuItem category="Shipping Addresses" info="3 addresses" />
         <View style={styles.horizontalLine} />
-
         <MenuItem category="Payment Methods" info="Visa **34" />
         <View style={styles.horizontalLine} />
-
         <MenuItem category="Promo Codes" info="You have special promocodes" />
-        <View style={styles.horizontalLine} />
-
-        <MenuItem category="My Reviews" info="Reviews for 4 items" />
-        <View style={styles.horizontalLine} />
-        <MenuItem category="My Reviews" info="Reviews for 4 items" />
-        <View style={styles.horizontalLine} />
-        <MenuItem category="My Reviews" info="Reviews for 4 items" />
         <View style={styles.horizontalLine} />
         <MenuItem category="My Reviews" info="Reviews for 4 items" />
         <View style={styles.horizontalLine} />
@@ -79,6 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingTop: 10,
     paddingHorizontal: 16,
+    backgroundColor: "#EFEFF2",
   },
   heading: {
     fontSize: 32,

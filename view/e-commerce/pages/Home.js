@@ -19,8 +19,14 @@ import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import { useNavigation } from "@react-navigation/native";
 
-const Home = () => {
-  const navigation = useNavigation();
+const Home = ({ navigation }) => {
+  navigation.setOptions({
+    title: "Home",
+    headerStyle: {
+      backgroundColor: "#EFEFF2",
+    },
+    headerTintColor: "#000",
+  });
   const [searchText, setSearchText] = useState("");
 
   const [data, setData] = useState([
