@@ -157,12 +157,12 @@ const Home = () => {
         )}
 
         {/* static button */}
-        <Text style={{ marginEnd: 50, color: "grey", marginTop: 10 }}>
+        <Text style={{ marginEnd: 50, color: "grey", marginTop: 60 }}>
           Show All
         </Text>
       </View>
 
-      <View style={{ padding: 2, marginStart: -15 }}>
+      <View style={{ padding: 2, marginStart: -13 }}>
         <FlatList
           data={data}
           numColumns={2}

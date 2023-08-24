@@ -25,7 +25,7 @@ const Profile = () => {
 
       <View style={styles.usercontainer}>
         <Image
-          source={require("../assets/profile-picture.png")}
+          source={require("../assets/avatar.png")}
           style={styles.image}
         />
         <View style={styles.userMainInformation}>
