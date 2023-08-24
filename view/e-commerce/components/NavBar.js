@@ -34,7 +34,7 @@ const NavBar = () => {
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
       />
       <Tab.Screen
         name="Cart"
