@@ -30,7 +30,7 @@ const App = () => {
           <Stack.Screen
             name="Login"
             component={LoginScreen}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, gestureEnabled: false }}
           />
           {/* <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }}/>  */}
           <Stack.Screen
@@ -41,7 +41,11 @@ const App = () => {
           <Stack.Screen
             name="home"
             component={HomeContainer}
-            options={{ headerShown: false }}
+            options={{
+              gestureEnabled: false,
+              headerLeft: null,
+              headerShown: false,
+            }}
           />
           <Stack.Screen name="Products" component={Products} />
           <Stack.Screen name="Item" component={Item} />

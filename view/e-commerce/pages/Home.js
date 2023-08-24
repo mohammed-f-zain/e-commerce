@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./style";
+
 import {
   Alert,
   Keyboard,
@@ -14,7 +15,6 @@ import {
   FlatList,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-// import { useRouter } from "expo-router";
 import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import { useNavigation } from "@react-navigation/native";
@@ -22,6 +22,7 @@ import { useNavigation } from "@react-navigation/native";
 const Home = () => {
   const navigation = useNavigation();
   const [searchText, setSearchText] = useState("");
+
   const [data, setData] = useState([
     {
       id: "1",
@@ -31,41 +32,41 @@ const Home = () => {
       productImage:
         "https://cdn.icon-icons.com/icons2/1082/PNG/512/tshirt_78128.png",
       price: 30,
-      isSelected: true,
+      isSelected: false,
     },
     {
       id: "2",
       CategoryName: "Jackets",
       image: "https://cdn-icons-png.flaticon.com/512/1785/1785396.png",
-      productName: "",
+      productName: "blue jacket",
       productImage: "",
-      price: 0,
+      price: 50,
       isSelected: false,
     },
     {
       id: "3",
       CategoryName: "pants",
       image: "https://cdn-icons-png.flaticon.com/512/3893/3893044.png",
-      productName: "",
+      productName: "black pant",
       productImage: "",
       price: 0,
       isSelected: false,
     },
   ]);
-  const [selectedCategoryName, setSelectedCategoryName] = useState(
-    data[0].CategoryName
-  ); // Initialize with the first category
-  const selectedItemId = data.find((item) => item.isSelected)?.id; // Get the ID of the selected item
-
-  // fuctions
+  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
+  const selectedItemId = data.find((item) => item.isSelected)?.id;
 
   const handleSearch = (text) => {
     setSearchText(text);
-    // You can perform your search logic here
   };
 
-  // handles selected category and makes sure only one is selected
   const OnCategoryPress = (categoryName) => {
+    if (selectedCategoryName === categoryName) {
+      setSelectedCategoryName(null);
+    } else {
+      setSelectedCategoryName(categoryName);
+    }
+
     setData((prevData) =>
       prevData.map((item) =>
         item.CategoryName === categoryName
@@ -73,12 +74,8 @@ const Home = () => {
           : { ...item, isSelected: false }
       )
     );
-    setSelectedCategoryName(categoryName);
   };
 
-  {
-    /* An item renderer */
-  }
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => OnCategoryPress(item.CategoryName)}>
       <CategoryCard
@@ -90,7 +87,10 @@ const Home = () => {
   );
 
   const renderProductItem = ({ item }) => {
-    if (item.CategoryName === selectedCategoryName) {
+    if (
+      selectedCategoryName === null ||
+      item.CategoryName === selectedCategoryName
+    ) {
       return (
         <TouchableOpacity onPress={() => OnProductPress(item.id)}>
           <ProductCard
@@ -105,7 +105,6 @@ const Home = () => {
   };
 
   const OnProductPress = (itemId) => {
-    // Navigate to the item page with the selected item's ID
     navigation.navigate("Item", { itemId });
   };
 
@@ -118,9 +117,9 @@ const Home = () => {
         marginTop: 100,
       }}
     >
-      <Text style={{ fontWeight: "bold", fontSize: 40 }}>New Arraivals</Text>
+      <Text style={{ fontWeight: "bold", fontSize: 40 }}>New Arrivals</Text>
       <Text style={{ color: "grey", marginTop: 20 }}>
-        Custom clothing for the mordern unique man
+        Custom clothing for the modern unique man
       </Text>
       <View style={styles.container}>
         <FontAwesome name="search" size={18} color="gray" style={styles.icon} />
@@ -131,8 +130,7 @@ const Home = () => {
           onChangeText={handleSearch}
         />
       </View>
-
-      {/* Category Section */}
+      {/* select -> pink , unselect ->*/}
       <View style={styles.containerCategories}>
         <FlatList
           data={data}
@@ -142,7 +140,6 @@ const Home = () => {
         />
       </View>
 
-      {/* products section */}
       <View
         style={{
           flexDirection: "row",
@@ -150,48 +147,26 @@ const Home = () => {
           justifyContent: "space-between",
         }}
       >
-        {selectedItemId && ( // Display selected item's CategoryName if it exists
+        {selectedItemId && (
           <Text style={{ fontSize: 30, marginTop: 10, marginBottom: 5 }}>
             {data.find((item) => item.id === selectedItemId).CategoryName}
           </Text>
         )}
 
-        {/* static button */}
         <Text style={{ marginEnd: 50, color: "grey", marginTop: 60 }}>
           Show All
         </Text>
       </View>
-
-      <View style={{ padding: 2, marginStart: -13 }}>
+      {/* edit this to make the scroll vertical And Flex:1 , so you can see all the items. */}
+      <View style={{ padding: 2, marginStart: -13, flex: 1 }}>
         <FlatList
           data={data}
           numColumns={2}
           renderItem={renderProductItem}
           keyExtractor={(item) => item.id}
+          vertical
         />
       </View>
-
-      {/* <View style={styles.cardsContainer}>
-        {isLoading ? (
-          <ActivityIndicator size='large' color="red" />
-         ) : error ? (
-          <Text>Something went wrong</Text>
-        ) : ( 
-          <FlatList
-            data={data}
-            renderItem={({ item }) => (
-              <PopularJobCard
-                item={item}
-                selectedJob={selectedJob}
-                handleCardPress={handleCardPress}
-              />
-            )}
-            keyExtractor={(item) => item.job_id}
-            contentContainerStyle={{ columnGap: d }}
-            horizontal
-          />
-        )}
-      </View> */}
     </View>
   );
 };
