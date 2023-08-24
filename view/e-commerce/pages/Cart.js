@@ -16,7 +16,9 @@ const T2 = require("../assets/t2.png");
 const T3 = require("../assets/t3.png");
 const T4 = require("../assets/t4.png");
 
-function Cart({ navigation }) {
+function Cart({ navigation, route }) {
+  const { cartItem } = route.params;
+  console.log(cartItem);
   navigation.setOptions({
     title: "cart",
     headerStyle: {
@@ -25,7 +27,12 @@ function Cart({ navigation }) {
     headerTintColor: "#000",
     headerLeft: () => (
       <TouchableOpacity
-        style={{ marginLeft: 15, flex:1,flexDirection:"row",alignItems:"center" }}
+        style={{
+          marginLeft: 15,
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+        }}
         onPress={() => navigation.goBack()}
       >
         <Ionicons name="ios-arrow-back" size={24} color="#000" />

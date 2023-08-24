@@ -21,6 +21,9 @@ function Items({ route }) {
     },
     headerTintColor: "#000",
   });
+  const addToCart = (cartItem) => {
+    navigation.navigate("Cart", { cartItem });
+  };
 
   return (
     <View style={styles.container}>
@@ -51,7 +54,7 @@ function Items({ route }) {
                 /* Handle Add to Cart */
               }}
             >
-              <Text style={styles.buttonText}>Add to cart</Text>
+              <Text onPress={() => addToCart(itemData)} style={styles.buttonText}>Add to cart</Text>
             </TouchableOpacity>
           </View>
         </View>
