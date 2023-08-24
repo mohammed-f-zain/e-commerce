@@ -14,6 +14,7 @@ import {
   Image,
   ActivityIndicator,
   FlatList,
+  ScrollView,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import CategoryCard from "../components/CategoryCard";
@@ -72,20 +73,22 @@ useEffect(() => {
       {/* select -> pink , unselect ->*/}
     
       {/* edit this to make the scroll vertical And Flex:1 , so you can see all the items. */}
-      <View style={{ padding: 2, marginStart: -40, flex: 1 }}>
+      <ScrollView style={{ padding: 2, marginStart: -45, flex: 1 }}>
   {
+   
     <TouchableOpacity style={{
       flexDirection: "row",
-      alignItems: "center",
+      flexWrap:"wrap",
+      // alignItems: "center",
       justifyContent: "space-between",
-      marginTop: 15,
+      marginTop: 10,
     }}>
       {itemData.map((item, index) => (
         <ProductCard item={item} key={index} />
       ))}
     </TouchableOpacity>
   }
-</View>
+</ScrollView>
 
     </View>
   );

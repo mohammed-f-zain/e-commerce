@@ -7,7 +7,7 @@ const ProductCard = ({ item }) => {
   return (
     <View style={styles.item}>
       <Image
-        source={item.image}
+        src={item.image}
         // resizeMode="center"
         style={{
           width: 130,
