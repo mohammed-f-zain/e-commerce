@@ -115,8 +115,8 @@ const Home = () => {
       style={{
         flex: 1,
         justifyContent: "flex-start",
-        marginStart: 30,
-        marginTop: 20,
+        marginStart: 50,
+        marginTop: 100,
       }}
     >
       <Text style={{ fontWeight: "bold", fontSize: 40 }}>New Arrivals</Text>
@@ -155,7 +155,7 @@ const Home = () => {
           </Text>
         )}
 
-        <Text style={{ marginEnd: 50, color: "grey", marginTop: 8 }}>
+        <Text style={{ marginEnd: 50, color: "grey", marginTop: 60 }}>
           Show All
         </Text>
       </View>
