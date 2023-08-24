@@ -17,14 +17,7 @@ const ProductCard = ({ item }) => {
           borderRadius: 8,
         }}
       />
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginTop: 15,
-        }}
-      >
+      <View>
         <Text style={{ color: "black", fontWeight: "bold" }}>{item.name}</Text>
         <Text>{item.price}$</Text>
       </View>
@@ -37,16 +30,10 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 15,
     marginHorizontal: 10,
-    // borderColor: 'lightgrey',
-    // borderWidth: 1,
     borderRadius: 8,
     height: 200,
     width: 150,
     backgroundColor: "white",
-    // shadowColor: '#000',
-    // shadowOffset: { width: 3, height: 3 },
-    // shadowOpacity: 0.3,
-    // shadowRadius: 8,
   },
 });
 export default ProductCard;
