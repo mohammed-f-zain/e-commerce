@@ -9,21 +9,37 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useContext, useState } from "react";
 // import Address from "../components/Address";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { AppContext } from "../App";
+import axios from "axios";
 
-export default function CheckOut({navigation}) {
+export default function CheckOut({navigation  }) {
+  const {data} = useContext(AppContext);
+  const id = data[2];
+  console.log(id);
   navigation.setOptions({
-    title: 'CheckOut',
+    title: "CheckOut",
     headerStyle: {
-      backgroundColor: '#EFEFF2',
+      backgroundColor: "#EFEFF2",
     },
-    headerTintColor: '#000',
+    headerTintColor: "#000",
   });
+ const deleteOrders =()=>{
+    axios
+      .delete(`https://project-e-commerce-v4bs.onrender.com/users/delete-order`,{userID:id})
+      .then((response) => {
+        console.log(response)
+        navigation.navigate("Congratulation")
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+     }
   const [address, setAddress] = useState([
     {
       text: "Home",
@@ -146,9 +162,12 @@ export default function CheckOut({navigation}) {
                 source={require("../assets/paypal1.png")}
               />
             </View>
-            <TouchableOpacity style={styles.paymentBtnContainer}  onPress={() => navigation.navigate('Congratulation')} >
+            <TouchableOpacity
+              style={styles.paymentBtnContainer}
+              onPress={() => deleteOrders()}
+            >
               <Ionicons name="arrow-forward-circle" size={24} color="#fff" />
-              <Text style={styles.paymentBtnText} >Complete Payment</Text>
+              <Text style={styles.paymentBtnText}>Complete Payment</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -161,7 +180,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fbfbfd",
-    paddingVertical:40
+    paddingVertical: 40,
   },
   // header
   header: {

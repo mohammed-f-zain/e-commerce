@@ -15,7 +15,7 @@ import axios from "axios";
 
 const T1 = require("../assets/t1.png");
 
-function Cart({ navigation, route }) {
+function Cart({ navigation }) {
   const { product, data } = useContext(AppContext);
   const id = data[2];
   // console.log(id)
@@ -95,7 +95,7 @@ function Cart({ navigation, route }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.checkbutton}
-          onPress={() => navigation.navigate("CheckOut")}
+          onPress={() => navigation.navigate("CheckOut",{id})}
         >
           <Text style={styles.checkout}>Checkout</Text>
         </TouchableOpacity>
