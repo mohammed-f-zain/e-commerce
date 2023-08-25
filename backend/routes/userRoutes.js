@@ -10,7 +10,6 @@ const {
 
 const router = express.Router();
 
-// Define your user routes here
 router.get("/:id", UserController);
 router.post("/add-user", newUser);
 router.post("/add-order", userNewOrder);

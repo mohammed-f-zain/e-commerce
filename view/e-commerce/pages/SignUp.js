@@ -33,7 +33,7 @@ const SignUp = () => {
   const fetchPost = async () => {
     try {
       const response = await axios.post(
-        "https://project-e-commerce-v4bs.onrender.com/users/add-user",
+        "https://backend-e-commerce-nffh.onrender.com/users/add-user",
         {
           username,
           email,

@@ -55,7 +55,7 @@ export default function LoginScreen() {
     if (validateEmail() && validatePassword()) {
       try {
         const response = await axios.post(
-          "https://project-e-commerce-v4bs.onrender.com/users",
+          "https://backend-e-commerce-nffh.onrender.com/users",
           {
             email,
             password,

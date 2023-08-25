@@ -18,10 +18,10 @@ import { Feather } from "@expo/vector-icons";
 import { AppContext } from "../App";
 import axios from "axios";
 
-export default function CheckOut({navigation  }) {
-  const {data} = useContext(AppContext);
+export default function CheckOut({ navigation }) {
+  const { data } = useContext(AppContext);
   const id = data[2];
-  console.log(id);
+  // console.log(id);
   navigation.setOptions({
     title: "CheckOut",
     headerStyle: {
@@ -29,17 +29,26 @@ export default function CheckOut({navigation  }) {
     },
     headerTintColor: "#000",
   });
- const deleteOrders =()=>{
-    axios
-      .delete(`https://project-e-commerce-v4bs.onrender.com/users/delete-order`,{userID:id})
-      .then((response) => {
-        console.log(response)
-        navigation.navigate("Congratulation")
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-     }
+
+  console.log("dddddddddddddddddddddddddddddddddddddddddddddddddd", id);
+  const deleteOrders = async () => {
+    try {
+      const response = await axios.delete(
+        "https://backend-e-commerce-nffh.onrender.com/users/delete-order",
+        {
+          data: {
+            userID: id,
+          },
+        }
+      );
+      console.log(response.data);
+      navigation.navigate("Congratulation");
+    } catch (error) {
+      console.error("Error:", error);
+      console.error("Error response:", error.response);
+    }
+  };
+
   const [address, setAddress] = useState([
     {
       text: "Home",

@@ -13,7 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { AppContext } from "../App";
 import axios from "axios";
 
-const T1 = require("../assets/t1.png");
+
 
 function Cart({ navigation }) {
   const { product, data } = useContext(AppContext);
@@ -23,7 +23,7 @@ function Cart({ navigation }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://project-e-commerce-v4bs.onrender.com/users/get-order/${id}`)
+      .get(`https://backend-e-commerce-nffh.onrender.com/users/get-order/${id}`)
       .then((response) => {
         setOrder(response.data.userOrders);
       })
@@ -31,7 +31,7 @@ function Cart({ navigation }) {
         console.error(error);
       });
   }, []);
-
+// console.log(order[0].OrderDate)
   useEffect(() => {
     const orderProductIDs = order.map((orderItem) => orderItem.ProductID);
     const filtered = [];

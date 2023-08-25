@@ -32,7 +32,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("https://project-e-commerce-v4bs.onrender.com/products")
+      .get("https://backend-e-commerce-nffh.onrender.com/products")
       .then((response) => {
         setItemData(response.data);
         setProduct(response.data);
