@@ -23,9 +23,10 @@ export const AppContext = createContext();
 const App = () => {
   const [data, setData] = useState([]);
   const [product, setProduct] = useState([]);
+  const [quantity, setQuantity] = useState()
 
   return (
-    <AppContext.Provider value={{ data, setData, product, setProduct }}>
+    <AppContext.Provider value={{ data, setData, product, setProduct, quantity, setQuantity }}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="FirstPage">
           <Stack.Screen

@@ -30,8 +30,12 @@ function Items({ route }) {
   const { data } = useContext(AppContext);
   const userID = data[2];
   const productID = itemData.id;
-  const quantity = 1;
   const [addCart, setAddCart] = useState([]);
+
+  const quantity = async (num) => {
+    return await num;
+  };
+  const n = quantity(1);
   const fetchPost = async () => {
     try {
       const response = await axios.post(
@@ -39,7 +43,7 @@ function Items({ route }) {
         {
           userID,
           productID,
-          quantity,
+          quantity: n,
         }
       );
       setAddCart(response.data);
