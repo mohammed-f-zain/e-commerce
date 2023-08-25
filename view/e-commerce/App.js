@@ -22,9 +22,10 @@ export const AppContext = createContext();
 
 const App = () => {
   const [data, setData] = useState([]);
+  const [product, setProduct] = useState([]);
 
   return (
-    <AppContext.Provider value={{ data, setData }}>
+    <AppContext.Provider value={{ data, setData, product, setProduct }}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="FirstPage">
           <Stack.Screen
@@ -47,7 +48,7 @@ const App = () => {
               headerShown: false,
             }}
           />
-          <Stack.Screen name="Products" component={Products}  />
+          <Stack.Screen name="Products" component={Products} />
           <Stack.Screen name="Item" component={Item} />
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Payment" component={Payment} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   ScrollView,
@@ -9,16 +9,39 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons"; // Import Ionicons or any other icon library you're using
+import { Ionicons } from "@expo/vector-icons";
+import { AppContext } from "../App";
+import axios from "axios";
 
 const T1 = require("../assets/t1.png");
-const T2 = require("../assets/t2.png");
-const T3 = require("../assets/t3.png");
-const T4 = require("../assets/t4.png");
 
 function Cart({ navigation, route }) {
-  const { cartItem } = route.params;
-  // console.log(cartItem);
+  const { product, data } = useContext(AppContext);
+  const id = data[2];
+  // console.log(id)
+  const [order, setOrder] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`https://project-e-commerce-v4bs.onrender.com/users/get-order/${id}`)
+      .then((response) => {
+        setOrder(response.data.userOrders);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    const orderProductIDs = order.map((orderItem) => orderItem.ProductID);
+    const filtered = [];
+    for (const id of orderProductIDs) {
+      const matchingProducts = product.filter((product) => product.id === id);
+      filtered.push(...matchingProducts);
+    }
+    setFilteredProducts(filtered);
+  }, [order]);
+
   navigation.setOptions({
     title: "cart",
     headerStyle: {
@@ -40,23 +63,16 @@ function Cart({ navigation, route }) {
     ),
   });
 
-  const products = [
-    { id: 1, name: "Product 1", price: "$10", quantity: 1, image: T1 },
-    { id: 2, name: "Product 2", price: "$15", quantity: 6, image: T2 },
-    { id: 4, name: "Product 2", price: "$15", quantity: 3, image: T3 },
-    { id: 5, name: "Product 2", price: "$15", quantity: 3, image: T3 },
-    { id: 6, name: "Product 2", price: "$15", quantity: 3, image: T3 },
-    { id: 7, name: "Product 2", price: "$15", quantity: 3, image: T3 },
-  ];
 
+  // console.log(filteredProducts);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#EFEFF2" barStyle="dark-content" />
       <ScrollView contentContainerStyle={styles.productList}>
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <View key={product.id} style={styles.productItem}>
             <View style={styles.div}>
-              <Image source={product.image} />
+              <Image src={product.image} style={{width:50, height:50}} />
             </View>
             <View>
               <Text>{product.name}</Text>

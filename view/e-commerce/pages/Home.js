@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./style";
 import axios from "axios";
 import {
@@ -19,6 +19,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import { useNavigation } from "@react-navigation/native";
+import { AppContext } from "../App";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -27,13 +28,15 @@ const Home = () => {
 
   const [itemData, setItemData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const { setProduct } = useContext(AppContext);
 
   useEffect(() => {
     axios
       .get("https://project-e-commerce-v4bs.onrender.com/products")
       .then((response) => {
         setItemData(response.data);
-        setFilteredData(response.data); // Initialize filtered data with all products
+        setProduct(response.data);
+        setFilteredData(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -42,13 +45,11 @@ const Home = () => {
 
   useEffect(() => {
     if (selectedCategoryName) {
-      // Filter products based on selected category
       const filteredProducts = itemData.filter(
         (item) => item.name === selectedCategoryName
       );
       setFilteredData(filteredProducts);
     } else {
-      // If no category is selected, show all products
       setFilteredData(itemData);
     }
   }, [selectedCategoryName, itemData]);
