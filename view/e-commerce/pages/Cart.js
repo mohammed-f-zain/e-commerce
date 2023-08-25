@@ -7,40 +7,78 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  SafeAreaView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AppContext } from "../App";
 import axios from "axios";
 
-
-
 function Cart({ navigation }) {
   const { product, data } = useContext(AppContext);
   const id = data[2];
-  // console.log(id)
   const [order, setOrder] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+
   useEffect(() => {
     axios
       .get(`https://backend-e-commerce-nffh.onrender.com/users/get-order/${id}`)
       .then((response) => {
-        setOrder(response.data.userOrders);
+        const orderProductIDs = response.data.userOrders.map(
+          (orderItem) => orderItem.ProductID
+        );
+        const filtered = [];
+        for (const id of orderProductIDs) {
+          const matchingProduct = product.find((product) => product.id === id);
+          if (matchingProduct) {
+            const updatedProduct = {
+              ...matchingProduct,
+              quantity: 1,
+              calculatedPrice: parseFloat(matchingProduct.price),
+            };
+            filtered.push(updatedProduct);
+          }
+        }
+        setFilteredProducts(filtered);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-// console.log(order[0].OrderDate)
-  useEffect(() => {
-    const orderProductIDs = order.map((orderItem) => orderItem.ProductID);
-    const filtered = [];
-    for (const id of orderProductIDs) {
-      const matchingProducts = product.filter((product) => product.id === id);
-      filtered.push(...matchingProducts);
-    }
-    setFilteredProducts(filtered);
-  }, [order]);
+
+  const handleDecrement = (productId) => {
+    const updatedProducts = filteredProducts.map((product) => {
+      if (product.id === productId && product.quantity > 1) {
+        const updatedQuantity = product.quantity - 1;
+        const calculatedPrice = product.price * updatedQuantity; 
+        const updatedProduct = {
+          ...product,
+          quantity: updatedQuantity,
+          calculatedPrice: calculatedPrice,
+        };
+        return updatedProduct;
+      }
+      return product;
+    });
+
+    setFilteredProducts(updatedProducts);
+  };
+
+  const handleIncrement = (productId) => {
+    const updatedProducts = filteredProducts.map((product) => {
+      if (product.id === productId) {
+        const updatedQuantity = product.quantity + 1;
+        const calculatedPrice = product.price * updatedQuantity;
+        const updatedProduct = {
+          ...product,
+          quantity: updatedQuantity,
+          calculatedPrice: calculatedPrice,
+        };
+        return updatedProduct;
+      }
+      return product;
+    });
+
+    setFilteredProducts(updatedProducts);
+  };
 
   navigation.setOptions({
     title: "cart",
@@ -63,8 +101,14 @@ function Cart({ navigation }) {
     ),
   });
 
+  // Inside the calculateTotalPrice function
+  const calculateTotalPrice = () => {
+    return filteredProducts.reduce(
+      (total, product) => total + product.calculatedPrice,
+      0
+    );
+  };
 
-  // console.log(filteredProducts);
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#EFEFF2" barStyle="dark-content" />
@@ -72,17 +116,26 @@ function Cart({ navigation }) {
         {filteredProducts.map((product) => (
           <View key={product.id} style={styles.productItem}>
             <View style={styles.div}>
-              <Image src={product.image} style={{width:50, height:50}} />
+              <Image
+                source={{ uri: product.image }}
+                style={{ width: 50, height: 50 }}
+              />
             </View>
             <View>
               <Text>{product.name}</Text>
-              <Text>{product.price}</Text>
+              <Text>{product.calculatedPrice.toFixed(2)}</Text>
             </View>
-            <TouchableOpacity style={styles.incr}>
+            <TouchableOpacity
+              style={styles.incr}
+              onPress={() => handleDecrement(product.id)}
+            >
               <Text style={styles.buttonText}>-</Text>
             </TouchableOpacity>
             <Text>{product.quantity}</Text>
-            <TouchableOpacity style={styles.incr}>
+            <TouchableOpacity
+              style={styles.incr}
+              onPress={() => handleIncrement(product.id)}
+            >
               <Text style={styles.buttonText}>+</Text>
             </TouchableOpacity>
           </View>
@@ -90,12 +143,14 @@ function Cart({ navigation }) {
       </ScrollView>
       <View style={styles.total}>
         <Text style={styles.totalText}>Total:</Text>
-        <Text style={styles.totalText}>1000$</Text>
+        <Text style={styles.totalText}>
+          {calculateTotalPrice().toFixed(2)}$
+        </Text>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.checkbutton}
-          onPress={() => navigation.navigate("CheckOut",{id})}
+          onPress={() => navigation.navigate("CheckOut", { id })}
         >
           <Text style={styles.checkout}>Checkout</Text>
         </TouchableOpacity>
@@ -103,6 +158,7 @@ function Cart({ navigation }) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -166,4 +222,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
 export default Cart;
