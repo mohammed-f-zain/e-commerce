@@ -8,17 +8,19 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+// import { useFocusEffect } from "@react-navigation/native";
+
 import { Ionicons } from "@expo/vector-icons";
 import { AppContext } from "../App";
 import axios from "axios";
 
 function Cart({ navigation }) {
-  const { product, data } = useContext(AppContext);
+  const { product, data } = useContext(AppContext); // Add setOrder from context
   const id = data[2];
   const [order, setOrder] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-
-  useEffect(() => {
+  //fixed the cart render itmes
+  const fetchCartItems = () => {
     axios
       .get(`https://backend-e-commerce-nffh.onrender.com/users/get-order/${id}`)
       .then((response) => {
@@ -42,13 +44,25 @@ function Cart({ navigation }) {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchCartItems();
+
+    const unsubscribe = navigation.addListener("focus", () => {
+      fetchCartItems();
+    });
+
+    return unsubscribe;
+  }, [navigation, product]);
+
+  // end fixed the cart render itmes
 
   const handleDecrement = (productId) => {
     const updatedProducts = filteredProducts.map((product) => {
       if (product.id === productId && product.quantity > 1) {
         const updatedQuantity = product.quantity - 1;
-        const calculatedPrice = product.price * updatedQuantity; 
+        const calculatedPrice = product.price * updatedQuantity;
         const updatedProduct = {
           ...product,
           quantity: updatedQuantity,
