@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import { React, useContext } from "react";
+import { React, useContext, useEffect } from "react";
 import { StatusBar } from "react-native";
-import { AppContext } from "../App";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons or any other icon library you're using
 import { TouchableOpacity } from "react-native";
+import { AppContext } from "../components/Context";
+
 const MenuItem = ({ category, info }) => (
   <View style={styles.usercategories}>
     <Text style={styles.category}>{category}</Text>
@@ -20,26 +21,31 @@ const MenuItem = ({ category, info }) => (
 
 const Profile = ({ navigation }) => {
   const { data } = useContext(AppContext);
-  navigation.setOptions({
-    title: "profile",
-    headerStyle: {
-      backgroundColor: "#EFEFF2",
-    },
-    headerTintColor: "#000",
-    headerLeft: () => (
-      <TouchableOpacity
-        style={{
-          marginLeft: 15,
-          flex: 1,
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons name="ios-arrow-back" size={24} color="#000" />
-      </TouchableOpacity>
-    ),
-  });
+  useEffect(() => {
+    // Perform any side effects here
+    // Example: Update state, fetch data, etc.
+    navigation.setOptions({
+      title: "profile",
+      headerStyle: {
+        backgroundColor: "#EFEFF2",
+      },
+      headerTintColor: "#000",
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginLeft: 15,
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="ios-arrow-back" size={24} color="#000" />
+        </TouchableOpacity>
+      ),
+    });
+  }, []); 
+ 
 
   return (
     <ScrollView style={{ flex: 1 }}>

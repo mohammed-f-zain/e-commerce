@@ -15,7 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { AppContext } from "../App";
+import { AppContext } from "../components/Context";
 import axios from "axios";
 
 export default function CheckOut({ navigation }) {

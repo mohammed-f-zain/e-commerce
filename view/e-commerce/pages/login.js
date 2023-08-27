@@ -15,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 import styles from "./style"; // Make sure to import your style file
-import { AppContext } from "../App";
+import { AppContext } from "../components/Context";
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,9 +77,9 @@ export default function LoginScreen() {
     }
   };
 
-  const onForgotPasswordPress = () => {
-    navigation.navigate("ForgotPassword");
-  };
+  // const onForgotPasswordPress = () => {
+  //   navigation.navigate("ForgotPassword");
+  // };
 
   const onSignUpPress = () => {
     navigation.navigate("signup");
@@ -122,11 +122,11 @@ export default function LoginScreen() {
               <Text style={styles.errorText}>{passwordError}</Text>
             )}
             {loginError && <Text style={styles.errorText}>{loginError}</Text>}
-            <TouchableOpacity onPress={onForgotPasswordPress}>
+            {/* <TouchableOpacity onPress={onForgotPasswordPress}> */}
               <Text style={{ marginStart: 220, marginBottom: 15 }}>
                 Forgot Password?
               </Text>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
             <Button
               buttonStyle={styles.loginButton}
               onPress={fetchPost}

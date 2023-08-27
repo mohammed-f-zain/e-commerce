@@ -11,7 +11,7 @@ import {
 // import { useFocusEffect } from "@react-navigation/native";
 
 import { Ionicons } from "@expo/vector-icons";
-import { AppContext } from "../App";
+import { AppContext } from "../components/Context";
 import axios from "axios";
 
 function Cart({ navigation }) {

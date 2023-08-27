@@ -19,7 +19,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import { useNavigation } from "@react-navigation/native";
-import { AppContext } from "../App";
+import { AppContext } from "../components/Context";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -147,22 +147,23 @@ const Home = () => {
         />
       </View>
 
-      <ScrollView style={{ padding: 2, marginStart: -45, flex: 1 }}>
-        {filteredData.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => OnProductPress(item)}
-            style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-              marginTop: 10,
-            }}
-          >
-            <ProductCard item={item} />
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <ScrollView style={{ padding: 2, marginStart: -35 }}>
+  <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }}>
+    {filteredData.map((item, index) => (
+      <TouchableOpacity
+        key={index}
+        onPress={() => OnProductPress(item)}
+        style={{
+          width: "49%", // Set the width to occupy almost half of the container
+          marginBottom: -5,
+        }}
+      >
+        <ProductCard item={item} />
+      </TouchableOpacity>
+    ))}
+  </View>
+</ScrollView>
+
     </View>
   );
 };

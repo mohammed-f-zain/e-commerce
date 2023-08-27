@@ -5,7 +5,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
 import Profile from "../pages/Profile";
-import Items from "../pages/Items";
 
 const Tab = createBottomTabNavigator();
 

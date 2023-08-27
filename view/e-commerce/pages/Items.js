@@ -10,7 +10,7 @@ import {
 import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { AppContext } from "../App";
+import { AppContext } from "../components/Context";
 import { Button } from "react-native-elements";
 
 function Items({ route }) {
@@ -42,14 +42,21 @@ function Items({ route }) {
           quantity: 1,
         }
       );
-      setAddCart(response.data);
-      addToCart(itemData);
+      // setAddCart(response.data);
+      // addToCart(itemData);
     } catch (error) {
       console.error("Error:", error);
       console.error("Error response:", error.response);
     }
   };
-  console.log(addCart);
+
+  const handleAddToCart = () => {
+    const response = fetchPost(); // Call the API
+    setAddCart(response.data);
+    addToCart(itemData); // Trigger navigation after the API call is complete
+  };
+
+  // console.log(addCart);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -73,7 +80,7 @@ function Items({ route }) {
           </View>
           <View style={styles.descBtn}>
             <Text style={styles.description}>{itemData.description}</Text>
-            <TouchableOpacity onPress={() => fetchPost()} style={styles.button}>
+            <TouchableOpacity onPress={() => handleAddToCart()} style={styles.button}>
               <Text style={styles.buttonText}>Add to cart</Text>
             </TouchableOpacity>
           </View>

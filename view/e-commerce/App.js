@@ -1,4 +1,4 @@
-import { React, createContext, useState } from "react";
+import { React, useState } from "react";
 import { StatusBar } from "react-native";
 import {
   NavigationContainer,
@@ -15,10 +15,10 @@ import Profile from "./pages/Profile";
 import LoginScreen from "./pages/login";
 import SignUpScreen from "./pages/SignUp";
 import HomeContainer from "./pages/HomeContainer";
+import { AppContext } from "./components/Context";
+
 
 const Stack = createStackNavigator();
-
-export const AppContext = createContext();
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -28,7 +28,8 @@ const App = () => {
   return (
     <AppContext.Provider value={{ data, setData, product, setProduct, quantity, setQuantity }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="FirstPage">
+        {/* <Stack.Navigator initialRouteName="FirstPage"> */}
+        <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
             component={LoginScreen}
