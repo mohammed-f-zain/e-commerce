@@ -89,7 +89,7 @@ export default function CheckOut({ navigation , route }) {
         Keyboard.dismiss();
       }}
     >
-      <ScrollView>
+      {/* <View> */}
         <View style={styles.container}>
           {/* header */}
           {/* Delivery address */}
@@ -97,6 +97,7 @@ export default function CheckOut({ navigation , route }) {
             <Text style={styles.subtitle}>Delivery address</Text>
             <View style={styles.addressInfo}>
               <FlatList
+
                 data={address}
                 renderItem={({ item }) => (
                   <TouchableOpacity onPress={() => pressHandler(item.key)}>
@@ -181,7 +182,7 @@ export default function CheckOut({ navigation , route }) {
             </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
+      {/* </View> */}
     </TouchableWithoutFeedback>
   );
 }
