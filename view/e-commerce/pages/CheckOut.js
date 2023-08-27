@@ -18,7 +18,8 @@ import { Feather } from "@expo/vector-icons";
 import { AppContext } from "../components/Context";
 import axios from "axios";
 
-export default function CheckOut({ navigation }) {
+export default function CheckOut({ navigation , route }) {
+  const { ID, Total } = route.params;
   const { data } = useContext(AppContext);
   const id = data[2];
   // console.log(id);
@@ -72,7 +73,7 @@ export default function CheckOut({ navigation }) {
 
   const [paymentAmount, setPaymentAmount] = useState([
     {
-      subtotal: 100,
+      subtotal: Total,
       deliveryFee: 2,
     },
   ]);

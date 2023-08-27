@@ -160,12 +160,14 @@ function Cart({ navigation }) {
         <Text style={styles.totalText}>
           {calculateTotalPrice().toFixed(2)}$
         </Text>
-      </View>
+          </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.checkbutton}
-          onPress={() => navigation.navigate("CheckOut", { id })}
-        >
+          onPress={() =>{
+            const ID=id
+            const Total = calculateTotalPrice().toFixed(2);
+          navigation.navigate("CheckOut", { ID , Total })}}>
           <Text style={styles.checkout}>Checkout</Text>
         </TouchableOpacity>
       </View>
